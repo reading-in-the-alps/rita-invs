@@ -1,0 +1,40 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Einträge</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>
+                                Signatur
+                            </th>
+                            <th>
+                                Typ
+                            </th>
+                            <th>
+                                Zusammenfassung
+                            </th>
+                        </thead>
+                        {% for x in object.has_entries.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ x.get_absolute_url }}">{{ x.entry_signatur }}</a>
+                                </td>
+                                <td>
+                                    {{ x.adm_action_type }}
+                                </td>
+                                <td>
+                                    {{ x.vollregest }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+{% endblock %}

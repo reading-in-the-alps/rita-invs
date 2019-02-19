@@ -1,0 +1,20 @@
+.card {
+    overflow: visible;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #bd0000;
+}
+
+a:not([href]):not([tabindex]) {
+    color: #bd0000;
+    text-decoration: none;
+}
+
+.help-block {
+	font-size: 0.9em;
+}
+.create-label {
+	font-weight: 700;
+}

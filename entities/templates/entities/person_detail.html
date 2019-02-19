@@ -1,0 +1,174 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Kurzbio und Funktionen</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "forename" %}
+                            </th>
+                            <td>
+                                {{ object.forename }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "name" %}
+                            </th>
+                            <td>
+                                {{ object.name }}
+                            </td>
+                        </tr>
+                        {% if object.profession.all %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "profession" %}
+                                </th>
+                                <td>
+                                    {% for x in object.profession.all %}
+                                        <li>
+                                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if object.alt_names.all %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "alt_names" %}
+                                </th>
+                                <td>
+                                    {{ object.alt_names }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>
+                                familiäre Verbindungen
+                            </th>
+                            <td>
+                                {% for key, value in object.get_family.items %}
+                                    {% if key == 'active' and value %}
+                                        {% for x in value %}
+                                            <li>
+                                                {{ x.rel_type }} von <a href="{{ x.target.get_absolute_url }}">{{ x.target }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% elif key == 'inverse' and value %}
+                                        {% for x in value %}
+                                            <li>
+                                                hat {{ x.rel_type }} <a href="{{ x.source.get_absolute_url }}">{{ x.source }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "date_of_birth" %}
+                            </th>
+                            <td>
+                                {% if object.date_of_birth_written %}
+                                    {{ object.date_of_birth_written }}
+                                {% elif object.date_of_birth %}
+                                    {{ object.date_of_birth }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "place_of_birth" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.place_of_birth.get_absolute_url }}">
+                                    {{ object.place_of_birth }}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Erwähnt in</h4>
+                </div>
+                <div class="card-body">
+                    {% if object.mentioned_in_entry.all %}
+                        <legend>
+                            Verfachbucheintrag
+                        </legend>
+                        {% for x in object.mentioned_in_entry.all %}
+                            <li>
+                                {{ x.vollregest }} <br />
+                                <small><a href="{{ x.get_absolute_url }}">{{ x }}</a></small>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if object.is_main_person %}
+                        <legend>
+                            Inventar als verwandte Person
+                        </legend>
+                        {% for x in object.is_main_person.all %}
+                            <li>
+                                <small>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </small>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                    {% if object.is_related_person %}
+                        <legend>
+                            Inventar als verwandte Person
+                        </legend>
+                        {% for x in object.is_related_person.all %}
+                            <li>
+                                <small>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </small>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if object.is_adm_person.all %}
+                        <legend>
+                            Inventar als adminstrative Person
+                        </legend>
+                        {% for x in object.is_adm_person.all %}
+                            <li>
+                                <small>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </small>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if object.is_other_person.all %}
+                        <legend>
+                            Inventar als genannte Person
+                        </legend>
+                        {% for x in object.is_other_person.all %}
+                            <li>
+                                <small>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </small>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock custom %}
