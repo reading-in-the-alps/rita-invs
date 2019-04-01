@@ -12,7 +12,7 @@ PROJECT_METADATA = {
     vollständig von Michael Span und Michael Prokosch durchgesehen und sämtlich darin enthaltenen\
     "Inventare" in strukturiert erfasst. Die vorliegende Web Applikation stellt diesen\
     Datenbestand der Öffentlichkeit zur Verfügung.',
-    'github': 'https://github.com/reading-in-the-alps/invs',
+    'github': 'https://github.com/reading-in-the-alps/rita-invs',
     'purpose_de': 'der Bereitstellung von Forschungsdaten.',
     'purpose_en': 'the publication of research data.',
     'version': '0.0.1',
