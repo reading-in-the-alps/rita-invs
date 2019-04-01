@@ -2,7 +2,7 @@
 # (by default) in the base.html and index.html
 
 PROJECT_METADATA = {
-    'title': 'RITA-invs',
+    'title': 'RITA-Inventare',
     'author': 'Peter Andorfer, Michael Span, Michael Prokosch',
     'subtitle': 'Register der Inventare des Mittleren Pustertals der Jahre 1750-1800',
     'description': 'Im Rahmen des Projektes Reading in the Alps wurden die Verfachbücher\
