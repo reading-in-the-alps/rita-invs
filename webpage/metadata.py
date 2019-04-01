@@ -16,7 +16,7 @@ PROJECT_METADATA = {
     'purpose_de': 'der Bereitstellung von Forschungsdaten.',
     'purpose_en': 'the publication of research data.',
     'version': '0.0.1',
-    'matomo_id': '110',
+    'matomo_id': '127',
     'matomo_url': '//matomo.acdh.oeaw.ac.at/',
     'imprint': '/imprint',
     'social_media': [
