@@ -54,7 +54,7 @@ class InventoryEntryFilterFormHelper(FormHelper):
                     ),
                 AccordionGroup(
                     'Suche im Inhalt',
-                    'table_row',
+                    'excel_row',
                     css_id="inhalt_search_fields"
                     ),
                 )

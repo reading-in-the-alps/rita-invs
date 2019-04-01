@@ -20,6 +20,11 @@ class InventoryEntryListFilter(django_filters.FilterSet):
         help_text=InventoryEntry._meta.get_field('is_located_in').help_text,
         label=InventoryEntry._meta.get_field('is_located_in').verbose_name
     )
+    excel_row = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=InventoryEntry._meta.get_field('excel_row').help_text,
+        label=InventoryEntry._meta.get_field('excel_row').verbose_name
+    )
 
 
 class VerfachBuchListFilter(django_filters.FilterSet):
