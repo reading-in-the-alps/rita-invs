@@ -13,8 +13,8 @@ PROJECT_METADATA = {
     "Inventare" in strukturiert erfasst. Die vorliegende Web Applikation stellt diesen\
     Datenbestand der Öffentlichkeit zur Verfügung.',
     'github': 'https://github.com/reading-in-the-alps/invs',
-    'purpose_de': 'Ziel von RITA-invs ist die Veröffentlichung von Forschungsdaten.',
-    'purpose_en': 'The purpose of RITA-invs is the publication of research data.',
+    'purpose_de': 'der Bereitstellung von Forschungsdaten.',
+    'purpose_en': 'the publication of research data.',
     'version': '0.0.1',
     'matomo_id': '110',
     'matomo_url': '//matomo.acdh.oeaw.ac.at/',
