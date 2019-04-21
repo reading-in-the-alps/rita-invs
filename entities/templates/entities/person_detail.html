@@ -27,6 +27,14 @@
                                 {{ object.name }}
                             </td>
                         </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "gender" %}
+                            </th>
+                            <td>
+                                {{ object.gender }}
+                            </td>
+                        </tr>
                         {% if object.profession.all %}
                             <tr>
                                 <th>
@@ -118,7 +126,7 @@
                     {% endif %}
                     {% if object.is_main_person %}
                         <legend>
-                            Inventar als verwandte Person
+                            Inventar als Hauptperson
                         </legend>
                         {% for x in object.is_main_person.all %}
                             <li>
