@@ -27,6 +27,7 @@ class PersonFilterFormHelper(FormHelper):
                     'Advanced search',
                     'alt_names',
                     'profession',
+                    'gender',
                     css_id="more"
                     ),
                 )
