@@ -204,6 +204,7 @@ class Institution(IdProvider):
 class Person(IdProvider):
     legacy_id = models.CharField(max_length=300, blank=True)
     written_name = models.CharField(max_length=300, blank=True)
+    written_name_leven = models.CharField(max_length=254, blank=True)
     forename = models.CharField(max_length=300, blank=True)
     gender = models.CharField(max_length=300, blank=True)
     name = models.CharField(max_length=300, blank=True)
@@ -249,6 +250,27 @@ class Person(IdProvider):
         on_delete=models.SET_NULL
     )
     comment = models.TextField(blank=True)
+    is_main = models.BooleanField(
+        blank=True, null=True,
+        verbose_name="Name (Erklärung aus Verfachbuch)",
+        help_text="Identifizierbare Personen, die im Eintrag erwähnt werden."
+    )
+    is_adm = models.BooleanField(
+        blank=True, null=True,
+        verbose_name="Beteiligte (administrative) Personen",
+        help_text="Beteiligte Personen (Beamte, Gerichtsverpflichtete, Zeugen, ...).",
+    )
+    is_related = models.BooleanField(
+        blank=True, null=True,
+        verbose_name="Beteiligte (nicht-administrative) Personen",
+        help_text="Beteiligte Personen (Erbsinteressenten, Gerhaben, Anweiser,\
+        Verkäufer, Verpächter, Käufer, Pächter, ...)."
+    )
+    is_other = models.BooleanField(
+        blank=True, null=True,
+        verbose_name="Sonstig genannte Personen",
+        help_text="Sonstig genannte Personen.",
+    )
 
     class Meta:
         ordering = ['name']

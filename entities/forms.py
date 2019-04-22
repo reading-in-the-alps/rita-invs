@@ -30,6 +30,14 @@ class PersonFilterFormHelper(FormHelper):
                     'gender',
                     css_id="more"
                     ),
+                AccordionGroup(
+                    'Rolle',
+                    'is_main',
+                    'is_related',
+                    'is_adm',
+                    'is_other',
+                    css_id="rolle"
+                    ),
                 )
             )
 

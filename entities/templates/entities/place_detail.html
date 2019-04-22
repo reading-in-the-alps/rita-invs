@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h3>
+                    <h4 class="card-title">Info</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
@@ -103,9 +103,17 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Map</h3>
+                    <h4 class="card-title">Personen</h4>
                 </div>
                 <div class="card-body">
+                    <legend>Wohn- und Wirkungsort von</legend>
+                    <ul>
+                        {% for x in object.living_place_for.all %}
+                            <li>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                     <div id="map"/>
                 </div>
             </div>
