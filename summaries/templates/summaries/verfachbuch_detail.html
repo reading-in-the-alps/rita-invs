@@ -20,16 +20,16 @@
                                 Zusammenfassung
                             </th>
                         </thead>
-                        {% for x in object.has_entries.all %}
+                        {% for x in object.has_inventories.all %}
                             <tr>
                                 <td>
-                                    <a href="{{ x.get_absolute_url }}">{{ x.entry_signatur }}</a>
+                                    <a href="{{ x.get_absolute_url }}">{{ x.inv_signatur }}</a>
                                 </td>
                                 <td>
-                                    {{ x.adm_action_type }}
+                                    {{ x.inv_type }}
                                 </td>
                                 <td>
-                                    {{ x.vollregest }}
+                                    {{ x.excel_row }}
                                 </td>
                             </tr>
                         {% endfor %}
