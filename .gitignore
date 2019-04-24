@@ -37,3 +37,7 @@ dev_secret.py
 /arche/data/fileType.json
 /arche/data/fileList.json
 /invs/settings/pg_local.py
+
+*.txt
+*.model
+spacytei

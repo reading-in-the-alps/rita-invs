@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'arche',
     'summaries',
     'charts',
-    'annotations',
     'leaflet',
 ]
 
@@ -86,7 +85,6 @@ TEMPLATES = [
                 'webpage.webpage_content_processors.installed_apps',
                 'webpage.webpage_content_processors.is_dev_version',
                 'webpage.webpage_content_processors.get_db_name',
-                'annotations.annotations_content_processors.annotation_scores',
             ],
         },
     },
