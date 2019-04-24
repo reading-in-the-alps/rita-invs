@@ -273,7 +273,7 @@ class Person(IdProvider):
     )
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
     @classmethod
     def get_listview_url(self):
