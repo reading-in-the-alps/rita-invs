@@ -26,6 +26,10 @@ class InventoryEntryListFilter(django_filters.FilterSet):
         label=InventoryEntry._meta.get_field('excel_row').verbose_name
     )
 
+    class Meta:
+        model = InventoryEntry
+        fields = "__all__"
+
 
 class VerfachBuchListFilter(django_filters.FilterSet):
     signatur = django_filters.CharFilter(

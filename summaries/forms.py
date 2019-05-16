@@ -55,6 +55,7 @@ class InventoryEntryFilterFormHelper(FormHelper):
                 AccordionGroup(
                     'Suche im Inhalt',
                     'excel_row',
+                    'only_one_person',
                     css_id="inhalt_search_fields"
                     ),
                 )

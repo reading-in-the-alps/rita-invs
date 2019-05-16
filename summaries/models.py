@@ -260,4 +260,6 @@ class InventoryEntry(IdProvider):
         self.adm_person_nr = self.adm_person.all().count()
         self.related_person_nr = self.related_person.all().count()
         self.other_person_nr = self.other_person.all().count()
+        if int(self.main_person_nr) == 1:
+            self.only_one_person = "nur eine Hauptperson"
         self.save()

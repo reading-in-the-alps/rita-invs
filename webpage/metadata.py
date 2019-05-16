@@ -10,7 +10,7 @@ PROJECT_METADATA = {
     der Bestand "Südtiroler Landesarchiv, Invantare des Mittleren Pustertals"\
     für den Zeitraum 1750 bis 1800 systematisch und\
     vollständig von Michael Span und Michael Prokosch durchgesehen und sämtlich darin enthaltenen\
-    "Inventare" in strukturiert erfasst. Die vorliegende Web Applikation stellt diesen\
+    "Inventare" strukturiert erfasst. Die vorliegende Web Applikation stellt diesen\
     Datenbestand der Öffentlichkeit zur Verfügung.',
     'github': 'https://github.com/reading-in-the-alps/rita-invs',
     'purpose_de': 'der Bereitstellung von Forschungsdaten.',
