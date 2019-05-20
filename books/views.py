@@ -57,3 +57,51 @@ class WorkDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(WorkDelete, self).dispatch(*args, **kwargs)
+
+
+class CreatorListView(GenericListView):
+    model = Creator
+    filter_class = CreatorListFilter
+    formhelper_class = CreatorFilterFormHelper
+    table_class = None
+    init_columns = [
+        'id',
+        'name',
+        'normdata_id'
+    ]
+    enable_merge = True
+
+
+class CreatorDetailView(DetailView):
+    model = Creator
+    template_name = 'books/creator_detail.html'
+
+
+class CreatorCreate(BaseCreateView):
+
+    model = Creator
+    form_class = CreatorForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CreatorCreate, self).dispatch(*args, **kwargs)
+
+
+class CreatorUpdate(BaseUpdateView):
+
+    model = Creator
+    form_class = CreatorForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CreatorUpdate, self).dispatch(*args, **kwargs)
+
+
+class CreatorDelete(DeleteView):
+    model = Creator
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('books:creator_browse')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CreatorDelete, self).dispatch(*args, **kwargs)

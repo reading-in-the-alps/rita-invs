@@ -18,6 +18,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 ACDH_IMPRINT_URL = "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
 REDMINE_ID = 13134
 
+LOBID_JSON = "http://lobid.org/gnd/{}.json"
+
+BSB_PATTERN = "-bsb"
+BSB_RDF_URL = "https://opacplus.bsb-muenchen.de/title/{}?format=rdf"
+
 
 INSTALLED_APPS = [
     'dal',

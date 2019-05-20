@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
+
 from vocabs.models import SkosConcept
+from entities.models import Place
 
 from idprovider.models import IdProvider
 
@@ -74,9 +77,68 @@ class Creator(IdProvider):
         help_text="Wie sicher ist es, dass genau dieser Erzeuger gemeint war",
         on_delete=models.SET_NULL
     )
+    gnd_date_of_death = models.DateField(
+        auto_now=False, auto_now_add=False, blank=True, null=True,
+        verbose_name="Todesdatum",
+        help_text="Todesdatum (aus GND übernommen)"
+    )
+    gnd_geographic_area = models.ManyToManyField(
+        Place, blank=True,
+        verbose_name="Wirkungsort(e)",
+        help_text="Wirkungsort(e) (aus GND übernommen)",
+    )
 
     def __str__(self):
         return "{}".format(self.name)
+
+    def lobid_rdf(self):
+        if self.normdata_id.startswith('http'):
+            gnd_id = self.normdata_id.split('/')[-1]
+            return settings.LOBID_JSON.format(gnd_id)
+        else:
+            return None
+
+    def get_books(self):
+        items = [x.related_work for x in WorkCreator.objects.filter(related_creator=self.id)]
+        return items
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('books:creator_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('books:creator_create')
+
+    def get_absolute_url(self):
+        return reverse('books:creator_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('books:creator_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('books:creator_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('books:creator_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id).order_by('id')
+        if next:
+            return reverse(
+                'books:creator_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'books:creator_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
 
 
 class Work(IdProvider):
@@ -171,3 +233,12 @@ class Example(IdProvider):
             return "{}".format(self.normdata_id)
         else:
             return "{}".format(self.id)
+
+    def get_rdf(self):
+        if self.normdata_id.startswith('http://mdz-nbn-resolving.de'):
+            try:
+                bsb_id = self.normdata_id.split(settings.BSB_PATTERN)[1]
+            except IndexError:
+                bsb_id = None
+            if bsb_id is not None:
+                return settings.BSB_RDF_URL.format(bsb_id)
