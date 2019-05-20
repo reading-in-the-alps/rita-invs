@@ -9,7 +9,68 @@ from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateV
 from . filters import *
 from . forms import *
 from . tables import *
-from . models import Person, Place, Institution
+from . models import *
+
+
+class WorkListView(GenericListView):
+    model = Work
+    filter_class = WorkListFilter
+    formhelper_class = WorkFilterFormHelper
+    table_class = None
+    init_columns = [
+        'id',
+        'title',
+    ]
+    enable_merge = True
+
+
+class WorkDetailView(DetailView):
+    model = Work
+    template_name = 'entities/work_detail.html'
+
+
+class WorkCreate(BaseCreateView):
+
+    model = Work
+    form_class = WorkForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WorkCreate, self).dispatch(*args, **kwargs)
+
+
+class WorkUpdate(BaseUpdateView):
+
+    model = Work
+    form_class = WorkForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WorkUpdate, self).dispatch(*args, **kwargs)
+
+
+class WorkDelete(DeleteView):
+    model = Work
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('entities:work_browse')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(WorkDelete, self).dispatch(*args, **kwargs)
+
+
+class PersonPersonListView(GenericListView):
+    model = PersonPerson
+    filter_class = PersonPersonListFilter
+    formhelper_class = PersonPersonFilterFormHelper
+    table_class = PersonPersonTable
+    init_columns = [
+        'id',
+        'source',
+        'rel_type',
+        'target',
+    ]
+    enable_merge = True
 
 
 class PersonPersonListView(GenericListView):
