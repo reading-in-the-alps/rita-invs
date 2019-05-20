@@ -26,7 +26,7 @@ class WorkListView(GenericListView):
 
 class WorkDetailView(DetailView):
     model = Work
-    template_name = 'entities/work_detail.html'
+    template_name = 'books/work_detail.html'
 
 
 class WorkCreate(BaseCreateView):

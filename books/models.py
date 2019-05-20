@@ -5,6 +5,52 @@ from vocabs.models import SkosConcept
 from idprovider.models import IdProvider
 
 
+class WorkCreator(IdProvider):
+    related_work = models.ForeignKey(
+        "Work", blank=True, null=True,
+        verbose_name="Werk",
+        on_delete=models.SET_NULL
+    )
+    related_creator = models.ForeignKey(
+        "Creator", blank=True, null=True,
+        verbose_name="Erzeuger",
+        help_text="Verantwortlich für die Erzeugung des Werkes",
+        on_delete=models.SET_NULL
+    )
+    certainty = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Gewissheit",
+        help_text="Wie sicher ist diese Verbindung",
+        on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        return "{} {}".format(self.related_work, self.related_creator)
+
+
+class WorkExample(IdProvider):
+    related_work = models.ForeignKey(
+        "Work", blank=True, null=True,
+        verbose_name="Werk",
+        on_delete=models.SET_NULL
+    )
+    related_example = models.ForeignKey(
+        "Example", blank=True, null=True,
+        verbose_name="Exemplar",
+        help_text="Exemplar",
+        on_delete=models.SET_NULL
+    )
+    certainty = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Gewissheit",
+        help_text="Wie sicher ist diese Verbindung",
+        on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        return "{} {}".format(self.related_work, self.related_example)
+
+
 class Creator(IdProvider):
     """Beschreibt einen Akteur der für die Erzeugung eines Werkes verantwortlich war."""
     legacy_id = models.CharField(
@@ -58,6 +104,14 @@ class Work(IdProvider):
 
     def __str__(self):
         return "{}".format(self.title)
+
+    def get_creators(self):
+        items = [x.related_creator for x in WorkCreator.objects.filter(related_work=self.id)]
+        return items
+
+    def get_examples(self):
+        items = [x.related_example for x in WorkExample.objects.filter(related_work=self.id)]
+        return items
 
     @classmethod
     def get_listview_url(self):
@@ -117,52 +171,3 @@ class Example(IdProvider):
             return "{}".format(self.normdata_id)
         else:
             return "{}".format(self.id)
-
-
-class WorkExample(IdProvider):
-    related_work = models.ForeignKey(
-        Work, blank=True, null=True,
-        verbose_name="Werk",
-        on_delete=models.SET_NULL
-    )
-    related_example = models.ForeignKey(
-        Example, blank=True, null=True,
-        verbose_name="Exemplar",
-        help_text="Exemplar",
-        on_delete=models.SET_NULL
-    )
-    certainty = models.ForeignKey(
-        SkosConcept, blank=True, null=True,
-        verbose_name="Gewissheit",
-        help_text="Wie sicher ist diese Verbindung",
-        on_delete=models.SET_NULL
-    )
-
-    def __str__(self):
-        return "{} {}".format(self.related_work, self.related_example)
-
-
-class WorkCreator(IdProvider):
-    related_work = models.ForeignKey(
-        Work, blank=True, null=True,
-        verbose_name="Werk",
-        on_delete=models.SET_NULL
-    )
-    related_creator = models.ForeignKey(
-        Creator, blank=True, null=True,
-        verbose_name="Erzeuger",
-        help_text="Verantwortlich für die Erzeugung des Werkes",
-        on_delete=models.SET_NULL
-    )
-    certainty = models.ForeignKey(
-        SkosConcept, blank=True, null=True,
-        verbose_name="Gewissheit",
-        help_text="Wie sicher ist diese Verbindung",
-        on_delete=models.SET_NULL
-    )
-
-    def __str__(self):
-        return "{} {}".format(self.related_work, self.related_creator)
-
-
-# Create your models here.

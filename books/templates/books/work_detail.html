@@ -1,0 +1,41 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                {% get_verbose_name work "title" %}
+            </th>
+            <td>
+                {{ object.title }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Autoren/Herausgeber
+            </th>
+            <td>
+                {% for x in object.get_creators %}
+                    <li>
+                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                    </li>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Exemplare
+            </th>
+            <td>
+                {% for x in object.get_examples %}
+                    <li>
+                        <a href="{{ x }}">{{ x }}</a>
+                    </li>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+
+{% endblock custom %}
