@@ -7,7 +7,7 @@ from vocabs.models import SkosConcept
 from entities.models import Place
 from idprovider.models import IdProvider
 
-from . utils import lobid_to_data
+from . utils import lobid_to_data, get_results, query_bsb, sanitize_querystring
 
 
 class Exemplar(IdProvider):
@@ -36,14 +36,19 @@ class Exemplar(IdProvider):
         else:
             return "{}".format(self.id)
 
-    def get_rdf(self):
+    def get_bvb_id(self):
         if self.normdata_id.startswith('http://mdz-nbn-resolving.de'):
             try:
                 bsb_id = self.normdata_id.split(settings.BSB_PATTERN)[1]
             except IndexError:
                 bsb_id = None
-            if bsb_id is not None:
-                return settings.BSB_RDF_URL.format(bsb_id)
+            return bsb_id
+
+    def get_rdf(self):
+        if self.get_bvb_id() is not None:
+            query = sanitize_querystring(query_bsb, self.get_bvb_id())
+            results = get_results(query)
+            return results
 
 
 class Creator(IdProvider):

@@ -20,8 +20,9 @@ REDMINE_ID = 13134
 
 LOBID_JSON = "http://lobid.org/gnd/{}.json"
 
-BSB_PATTERN = "-bsb"
+BSB_PATTERN = "http://mdz-nbn-resolving.de/"
 BSB_RDF_URL = "https://opacplus.bsb-muenchen.de/title/{}?format=rdf"
+BSB_ENDPOINT = "https://lod.b3kat.de/sparql"
 
 
 INSTALLED_APPS = [
