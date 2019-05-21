@@ -58,6 +58,20 @@ class InventoryEntryFilterFormHelper(FormHelper):
                     'only_one_person',
                     css_id="inhalt_search_fields"
                     ),
+                AccordionGroup(
+                    'Vermögen',
+                    'invenatar_summe_norm_fl',
+                    'vor_passiva_fl',
+                    'nach_passiva_fl',
+                    css_id="vermoegen"
+                    ),
+                AccordionGroup(
+                    'Lesen & Schreiben',
+                    'buecher',
+                    'buecher_sys',
+                    'vollstaendig',
+                    css_id="lesen"
+                    ),
                 )
             )
 

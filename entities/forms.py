@@ -69,7 +69,7 @@ class PersonFilterFormHelper(FormHelper):
                 ),
             Accordion(
                 AccordionGroup(
-                    'Advanced search',
+                    'Biographisches',
                     'belongs_to_place',
                     'belongs_to_place__name',
                     'profession',

@@ -25,6 +25,23 @@ class InventoryEntryListFilter(django_filters.FilterSet):
         help_text=InventoryEntry._meta.get_field('excel_row').help_text,
         label=InventoryEntry._meta.get_field('excel_row').verbose_name
     )
+    invenatar_summe_norm_fl = django_filters.RangeFilter(
+        help_text=InventoryEntry._meta.get_field('invenatar_summe_norm_fl').help_text,
+        label=InventoryEntry._meta.get_field('invenatar_summe_norm_fl').verbose_name,
+    )
+    vor_passiva_fl = django_filters.RangeFilter(
+        help_text=InventoryEntry._meta.get_field('vor_passiva_fl').help_text,
+        label=InventoryEntry._meta.get_field('vor_passiva_fl').verbose_name,
+    )
+    nach_passiva_fl = django_filters.RangeFilter(
+        help_text=InventoryEntry._meta.get_field('nach_passiva_fl').help_text,
+        label=InventoryEntry._meta.get_field('nach_passiva_fl').verbose_name,
+    )
+    buecher = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text="Zeichenkette die im Feld 'Bücher' enthalten sein muss.",
+        label=InventoryEntry._meta.get_field('buecher').verbose_name
+    )
 
     class Meta:
         model = InventoryEntry
