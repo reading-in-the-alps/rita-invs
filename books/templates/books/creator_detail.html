@@ -45,7 +45,7 @@
                 Autor/Herausgeber von
             </th>
             <td>
-                {% for x in object.get_books %}
+                {% for x in object.has_creator.all %}
                     <li>
                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                     </li>

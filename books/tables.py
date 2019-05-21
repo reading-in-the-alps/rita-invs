@@ -17,26 +17,16 @@ class CreatorTable(tables.Table):
 
 class WorkTable(tables.Table):
     id = tables.LinkColumn()
+    creator = tables.TemplateColumn(
+        "{% for x in record.creator.all %}<li><a href='{{ x.get_absolute_url }}'>{{ x }}</a></li> {% endfor %}",
+        orderable=False, verbose_name="Erzeuger"
+    )
+    exemplar = tables.TemplateColumn(
+        "{% for x in record.exemplar.all %}<li><a href='{{ x.normdata_id }}'>{{ x.normdata_id }}</a></li>  {% endfor %}",
+        orderable=False, verbose_name="Exemplare"
+    )
 
     class Meta:
-        model = WorkCreator
-        sequence = ('id', 'title', 'title_certainty')
-        attrs = {"class": "table table-responsive table-hover"}
-
-
-class WorkCreatorTable(tables.Table):
-    id = tables.LinkColumn()
-    related_work = tables.LinkColumn(
-        'books:work_detail',
-        args=[A('related_work.id')], verbose_name='Work'
-    )
-    related_creator = tables.LinkColumn(
-        'books:creator_detail',
-        args=[A('related_creator.id')], verbose_name='creator'
-    )
-    certainty = tables.Column()
-
-    class Meta:
-        model = WorkCreator
-        sequence = ('id', 'related_work', 'related_creator', 'certainty')
+        model = Work
+        sequence = ('id', 'title', 'creator')
         attrs = {"class": "table table-responsive table-hover"}

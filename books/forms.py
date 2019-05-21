@@ -31,14 +31,17 @@ class WorkFilterFormHelper(FormHelper):
         self.add_input(Submit('Filter', 'Search'))
         self.layout = Layout(
             Fieldset(
-                'Basic search options',
+                'Suche im Titel',
                 'title',
+                'creator',
                 'title_certainty',
                 css_id="basic_search_fields"
                 ),
             Accordion(
                 AccordionGroup(
-                    'Advanced search',
+                    'Weitere Suchmöglichkeiten',
+                    'exemplar__normdata_id',
+                    'creator__gnd_geographic_area',
                     css_id="more"
                     ),
                 )

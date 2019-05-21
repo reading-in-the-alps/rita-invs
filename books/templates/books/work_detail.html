@@ -17,7 +17,7 @@
                 Autoren/Herausgeber
             </th>
             <td>
-                {% for x in object.get_creators %}
+                {% for x in object.creator.all %}
                     <li>
                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                     </li>

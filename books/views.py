@@ -16,10 +16,11 @@ class WorkListView(GenericListView):
     model = Work
     filter_class = WorkListFilter
     formhelper_class = WorkFilterFormHelper
-    table_class = None
+    table_class = WorkTable
     init_columns = [
         'id',
         'title',
+        'creator'
     ]
     enable_merge = True
 

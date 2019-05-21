@@ -13,6 +13,16 @@ class WorkListFilter(django_filters.FilterSet):
         help_text=Work._meta.get_field('title').help_text,
         label=Work._meta.get_field('title').verbose_name
         )
+    exemplar__normdata_id = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text="Zeichenkette muss Teil der Normdata-ID des Exemplars sein.",
+        label=Work._meta.get_field('exemplar').verbose_name
+        )
+    creator__gnd_geographic_area = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text="Herkunft der Erzeuger",
+        label="Herkunft der Erzeuger"
+    )
     title_certainty = django_filters.ModelMultipleChoiceFilter(
         queryset=SkosConcept.objects.all(),
         help_text=Work._meta.get_field('title_certainty').help_text,

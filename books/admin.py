@@ -17,29 +17,12 @@ class CreatorAdmin(admin.ModelAdmin):
     ]
 
 
-class ExampleAdmin(admin.ModelAdmin):
+class ExemplarAdmin(admin.ModelAdmin):
     list_display = [
         'normdata_id',
     ]
 
 
-class WorkCreatorAdmin(admin.ModelAdmin):
-    list_display = [
-        'related_work',
-        'related_creator',
-    ]
-
-
-class WorkExampleAdmin(admin.ModelAdmin):
-    list_display = [
-        'related_work',
-        'related_example',
-        'certainty'
-    ]
-
-
 admin.site.register(Creator, CreatorAdmin)
 admin.site.register(Work, WorkAdmin)
-admin.site.register(WorkCreator, WorkCreatorAdmin)
-admin.site.register(Example, ExampleAdmin)
-admin.site.register(WorkExample, WorkExampleAdmin)
+admin.site.register(Exemplar, ExemplarAdmin)
