@@ -80,6 +80,8 @@ class CreatorFilterFormHelper(FormHelper):
                     'Advanced search',
                     'legacy_id',
                     'normdata_id',
+                    'gnd_geographic_area',
+                    'gnd_date_of_death',
                     css_id="more"
                     ),
                 )

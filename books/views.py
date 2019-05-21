@@ -63,11 +63,12 @@ class CreatorListView(GenericListView):
     model = Creator
     filter_class = CreatorListFilter
     formhelper_class = CreatorFilterFormHelper
-    table_class = None
+    table_class = CreatorTable
     init_columns = [
         'id',
         'name',
-        'normdata_id'
+        'gnd_date_of_death',
+        'gnd_geographic_area',
     ]
     enable_merge = True
 

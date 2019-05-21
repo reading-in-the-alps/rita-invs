@@ -3,6 +3,7 @@ from dal import autocomplete
 
 from vocabs.models import SkosConcept
 from vocabs.filters import generous_concept_filter
+from entities.models import Place
 from . models import *
 
 
@@ -56,6 +57,18 @@ class CreatorListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         help_text=Creator._meta.get_field('gnd_data').help_text,
         label=Creator._meta.get_field('gnd_data').verbose_name
+    )
+    gnd_geographic_area = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Creator._meta.get_field('gnd_geographic_area').help_text,
+        label=Creator._meta.get_field('gnd_geographic_area').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url="/entities-ac/place-autocomplete",
+            )
+        )
+    gnd_date_of_death = django_filters.DateFromToRangeFilter(
+        help_text=Creator._meta.get_field('gnd_date_of_death').help_text,
+        label=Creator._meta.get_field('gnd_date_of_death').verbose_name,
     )
 
     class Meta:

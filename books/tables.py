@@ -5,6 +5,16 @@ from browsing.browsing_utils import MergeColumn
 from . models import *
 
 
+class CreatorTable(tables.Table):
+    id = tables.LinkColumn()
+    gnd_geographic_area = tables.columns.ManyToManyColumn()
+
+    class Meta:
+        model = Creator
+        sequence = ('id', 'name', 'gnd_date_of_death', 'gnd_geographic_area',)
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class WorkTable(tables.Table):
     id = tables.LinkColumn()
 
