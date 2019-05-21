@@ -30,18 +30,19 @@ class WorkFilterFormHelper(FormHelper):
         self.helper.form_tag = False
         self.add_input(Submit('Filter', 'Search'))
         self.layout = Layout(
-            Fieldset(
-                'Suche im Titel',
-                'title',
-                'creator',
-                'title_certainty',
-                css_id="basic_search_fields"
-                ),
             Accordion(
                 AccordionGroup(
-                    'Weitere Suchmöglichkeiten',
+                    'Titel & Exemplare',
+                    'title',
                     'exemplar__normdata_id',
+                    'title_certainty',
+                    css_id="basic_search_fields"
+                    ),
+                AccordionGroup(
+                    'Autoren & Herausgeber',
+                    'creator',
                     'creator__gnd_geographic_area',
+                    'creator__gnd_date_of_death',
                     css_id="more"
                     ),
                 )

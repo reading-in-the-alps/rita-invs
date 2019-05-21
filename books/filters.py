@@ -23,6 +23,10 @@ class WorkListFilter(django_filters.FilterSet):
         help_text="Herkunft der Erzeuger",
         label="Herkunft der Erzeuger"
     )
+    creator__gnd_date_of_death = django_filters.DateFromToRangeFilter(
+        help_text="Von-Bis Todesdatum der Erzeuger (YYYY-MM-DD)",
+        label="Todesdatum der Erzeuger",
+    )
     title_certainty = django_filters.ModelMultipleChoiceFilter(
         queryset=SkosConcept.objects.all(),
         help_text=Work._meta.get_field('title_certainty').help_text,
