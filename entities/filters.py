@@ -56,7 +56,15 @@ class PersonListFilter(django_filters.FilterSet):
         label=Person._meta.get_field('profession').verbose_name,
         method=generous_concept_filter,
         widget=autocomplete.Select2Multiple(
-            url="/vocabs-ac/concept-by-colleciton-ac/profession",
+            url="/vocabs-ac/concept-by-colleciton-ac/Berufe",
+            )
+        )
+    belongs_to_place = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Person._meta.get_field('belongs_to_place').help_text,
+        label=Person._meta.get_field('belongs_to_place').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url="/entities-ac/place-autocomplete",
             )
         )
     belongs_to_place__name = django_filters.CharFilter(
