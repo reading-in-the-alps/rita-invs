@@ -1,9 +1,9 @@
 import re
+import reversion
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 from idprovider.models import IdProvider
-import reversion
 
 from browsing.browsing_utils import model_to_dict
 from vocabs.models import SkosConcept
@@ -35,12 +35,11 @@ class AlternativeName(IdProvider):
 
 @reversion.register()
 class Place(IdProvider):
+    """Holds information about entities."""
     PLACE_TYPES = (
         ("city", "city"),
         ("country", "country")
     )
-
-    """Holds information about entities."""
     name = models.CharField(
         max_length=250, blank=True, help_text="Normalized name"
     )

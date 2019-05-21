@@ -70,7 +70,8 @@ class PersonFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'alt_names',
+                    'belongs_to_place',
+                    'belongs_to_place__name',
                     'profession',
                     'gender',
                     css_id="more"
@@ -82,6 +83,11 @@ class PersonFilterFormHelper(FormHelper):
                     'is_adm',
                     'is_other',
                     css_id="rolle"
+                    ),
+                AccordionGroup(
+                    'Inventare',
+                    'is_main_person__buecher_sys',
+                    css_id="inventare"
                     ),
                 )
             )

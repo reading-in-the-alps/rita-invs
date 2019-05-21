@@ -4,6 +4,7 @@ from dal import autocomplete
 from vocabs.models import SkosConcept
 from vocabs.filters import generous_concept_filter
 from entities.models import *
+from summaries.models import BUECHER
 
 
 class PersonPersonListFilter(django_filters.FilterSet):
@@ -58,6 +59,14 @@ class PersonListFilter(django_filters.FilterSet):
             url="/vocabs-ac/concept-by-colleciton-ac/profession",
             )
         )
+    belongs_to_place__name = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text='Zeichenkette die im Ortsname vorkommen muss.',
+        label="Name des Wohnorts"
+        )
+    is_main_person__buecher_sys = django_filters.ChoiceFilter(
+        choices=BUECHER
+    )
 
     class Meta:
         model = Person
