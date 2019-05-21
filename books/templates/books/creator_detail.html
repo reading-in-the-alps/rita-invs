@@ -14,6 +14,26 @@
         </tr>
         <tr>
             <th>
+                {% get_verbose_name creator "gnd_date_of_death" %}
+            </th>
+            <td>
+                {{ object.gnd_date_of_death|date:"Y" }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                {% get_verbose_name creator "gnd_geographic_area" %}
+            </th>
+            <td>
+                {% for x in object.gnd_geographic_area.all %}
+                    <li>
+                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                    </li>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>
                 {% get_verbose_name creator "normdata_id" %}
             </th>
             <td>
@@ -32,6 +52,19 @@
                 {% endfor %}
             </td>
         </tr>
+    </table>
+    <legend>Daten aus GND</legend>
+    <table class="table table-bordered table-hover">
+        {% for key, value in object.gnd_data.items %}
+            <tr>
+                <th>
+                    {{ key }}
+                </th>
+                <td>
+                    <code>{{ value }}</code>
+                </td>
+            </tr>
+        {% endfor %}
     </table>
 
 {% endblock custom %}

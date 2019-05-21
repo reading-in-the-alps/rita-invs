@@ -1,11 +1,13 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.contrib.postgres.fields import JSONField
 
 from vocabs.models import SkosConcept
 from entities.models import Place
-
 from idprovider.models import IdProvider
+
+from . utils import lobid_to_data
 
 
 class WorkCreator(IdProvider):
@@ -80,23 +82,34 @@ class Creator(IdProvider):
     gnd_date_of_death = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True,
         verbose_name="Todesdatum",
-        help_text="Todesdatum (aus GND übernommen)"
+        help_text="Todesdatum (aus GND übernommen und auf YYYY-01-01 normalisiert."
     )
     gnd_geographic_area = models.ManyToManyField(
         Place, blank=True,
         verbose_name="Wirkungsort(e)",
         help_text="Wirkungsort(e) (aus GND übernommen)",
     )
+    gnd_data = JSONField(
+        null=True, blank=True, verbose_name="GND Daten", help_text="Daten aus der GND"
+    )
 
     def __str__(self):
         return "{}".format(self.name)
 
-    def lobid_rdf(self):
+    def get_lobid_rdf(self):
         if self.normdata_id.startswith('http'):
             gnd_id = self.normdata_id.split('/')[-1]
-            return settings.LOBID_JSON.format(gnd_id)
+            lobid_url = settings.LOBID_JSON.format(gnd_id)
         else:
-            return None
+            lobid_url = None
+        if lobid_url is not None:
+            data = lobid_to_data(lobid_url)
+            if data is not None:
+                self.gnd_data = data
+                self.save()
+                return data
+            else:
+                return None
 
     def get_books(self):
         items = [x.related_work for x in WorkCreator.objects.filter(related_creator=self.id)]

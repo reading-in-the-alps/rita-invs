@@ -52,6 +52,11 @@ class CreatorListFilter(django_filters.FilterSet):
             url="/vocabs-ac/concept-by-colleciton-ac/certainty",
             )
         )
+    gnd_data = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Creator._meta.get_field('gnd_data').help_text,
+        label=Creator._meta.get_field('gnd_data').verbose_name
+    )
 
     class Meta:
         model = Creator
