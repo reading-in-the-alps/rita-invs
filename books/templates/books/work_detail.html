@@ -29,9 +29,9 @@
                 Exemplare
             </th>
             <td>
-                {% for x in object.get_examples %}
+                {% for x in object.exemplar.all %}
                     <li>
-                        <a href="{{ x }}">{{ x }}</a>
+                        <a href="{{ x.normdata_id }}">{{ x.normdata_id }}</a>
                     </li>
                 {% endfor %}
             </td>
