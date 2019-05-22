@@ -83,6 +83,7 @@ class Creator(IdProvider):
         Place, blank=True,
         verbose_name="Wirkungsort(e)",
         help_text="Wirkungsort(e) (aus GND übernommen)",
+        related_name="has_creator"
     )
     gnd_data = JSONField(
         null=True, blank=True, verbose_name="GND Daten", help_text="Daten aus der GND"

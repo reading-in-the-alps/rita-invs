@@ -113,6 +113,11 @@
                                 <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                             </li>
                         {% endfor %}
+                        {% for x in object.has_creator.all %}
+                            <li>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
                     <div id="map"/>
                 </div>

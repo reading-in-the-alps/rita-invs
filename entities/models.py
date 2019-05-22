@@ -202,12 +202,27 @@ class Institution(IdProvider):
 @reversion.register()
 class Person(IdProvider):
     legacy_id = models.CharField(max_length=300, blank=True)
-    written_name = models.CharField(max_length=300, blank=True)
+    written_name = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Umfassende Pesonenbezeichnung"
+    )
     written_name_leven = models.CharField(max_length=254, blank=True)
-    forename = models.CharField(max_length=300, blank=True)
-    gender = models.CharField(max_length=300, blank=True)
-    name = models.CharField(max_length=300, blank=True)
-    house_name = models.CharField(max_length=300, blank=True)
+    forename = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Vorname"
+    )
+    gender = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Geschlecht"
+    )
+    name = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Nachname"
+    )
+    house_name = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Hausname"
+    )
     alt_names = models.ManyToManyField(
         AlternativeName,
         max_length=250, blank=True,

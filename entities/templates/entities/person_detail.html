@@ -73,50 +73,56 @@
                                 </td>
                             </tr>
                         {% endif %}
-                        <tr>
-                            <th>
-                                familiäre Verbindungen
-                            </th>
-                            <td>
-                                {% for key, value in object.get_family.items %}
-                                    {% if key == 'active' and value %}
-                                        {% for x in value %}
-                                            <li>
-                                                {{ x.rel_type }} von <a href="{{ x.target.get_absolute_url }}">{{ x.target }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    {% elif key == 'inverse' and value %}
-                                        {% for x in value %}
-                                            <li>
-                                                hat {{ x.rel_type }} <a href="{{ x.source.get_absolute_url }}">{{ x.source }}</a>
-                                            </li>
-                                        {% endfor %}
+                        {% if object.get_family.item %}
+                            <tr>
+                                <th>
+                                    familiäre Verbindungen
+                                </th>
+                                <td>
+                                    {% for key, value in object.get_family.items %}
+                                        {% if key == 'active' and value %}
+                                            {% for x in value %}
+                                                <li>
+                                                    {{ x.rel_type }} von <a href="{{ x.target.get_absolute_url }}">{{ x.target }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        {% elif key == 'inverse' and value %}
+                                            {% for x in value %}
+                                                <li>
+                                                    hat {{ x.rel_type }} <a href="{{ x.source.get_absolute_url }}">{{ x.source }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if object.date_of_birth %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "date_of_birth" %}
+                                </th>
+                                <td>
+                                    {% if object.date_of_birth_written %}
+                                        {{ object.date_of_birth_written }}
+                                    {% elif object.date_of_birth %}
+                                        {{ object.date_of_birth }}
                                     {% endif %}
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "date_of_birth" %}
-                            </th>
-                            <td>
-                                {% if object.date_of_birth_written %}
-                                    {{ object.date_of_birth_written }}
-                                {% elif object.date_of_birth %}
-                                    {{ object.date_of_birth }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "place_of_birth" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.place_of_birth.get_absolute_url }}">
-                                    {{ object.place_of_birth }}
-                                </a>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if object.place_of_birth %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "place_of_birth" %}
+                                </th>
+                                <td>
+                                    <a href="{{ object.place_of_birth.get_absolute_url }}">
+                                        {{ object.place_of_birth }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>
