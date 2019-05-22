@@ -8,10 +8,29 @@ from . models import *
 
 
 class ExemplarListFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(
+
+    related_work__title = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=Exemplar._meta.get_field('title').help_text,
-        label=Exemplar._meta.get_field('title').verbose_name
+        help_text='Zeichenkette die im Buchtitel vorkommen muss.',
+        label=Work._meta.get_field('title').verbose_name
+        )
+
+    related_work = django_filters.ModelMultipleChoiceFilter(
+        queryset=Work.objects.all(),
+        help_text=Exemplar._meta.get_field('related_work').help_text,
+        label=Exemplar._meta.get_field('related_work').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url="/books-ac/work-autocomplete/",
+            )
+        )
+    certainty = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConcept.objects.all(),
+        help_text=Exemplar._meta.get_field('certainty').help_text,
+        label=Exemplar._meta.get_field('certainty').verbose_name,
+        method=generous_concept_filter,
+        widget=autocomplete.Select2Multiple(
+            url="/vocabs-ac/concept-by-colleciton-ac/certainty",
+            )
         )
 
     class Meta:
@@ -24,11 +43,6 @@ class WorkListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         help_text=Work._meta.get_field('title').help_text,
         label=Work._meta.get_field('title').verbose_name
-        )
-    exemplar__normdata_id = django_filters.CharFilter(
-        lookup_expr='icontains',
-        help_text="Zeichenkette muss Teil der Normdata-ID des Exemplars sein.",
-        label=Work._meta.get_field('exemplar').verbose_name
         )
     creator__gnd_geographic_area = django_filters.ModelMultipleChoiceFilter(
         queryset=Place.objects.all(),

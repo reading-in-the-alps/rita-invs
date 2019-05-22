@@ -10,6 +10,12 @@ class ExemplarForm(forms.ModelForm):
     class Meta:
         model = Exemplar
         fields = "__all__"
+        widgets = {
+            'related_work': autocomplete.ModelSelect2(
+                url='books-ac:work-autocomplete'),
+            'certainty': autocomplete.ModelSelect2(
+                url='/vocabs-ac/concept-by-colleciton-ac/certainty'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(ExemplarForm, self).__init__(*args, **kwargs)
@@ -33,9 +39,10 @@ class ExemplarFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Titel & Exemplare',
-                    'title',
+                    'related_work',
+                    'related_work__title',
                     'normdata_id',
-                    'title_certainty',
+                    'certainty',
                     css_id="basic_search_fields"
                     ),
                 )
@@ -70,7 +77,6 @@ class WorkFilterFormHelper(FormHelper):
                 AccordionGroup(
                     'Titel & Exemplare',
                     'title',
-                    'exemplar__normdata_id',
                     'title_certainty',
                     css_id="basic_search_fields"
                     ),

@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^entities-ac/', include('entities.dal_urls', namespace='entities-ac')),
     url(r'^entities/', include('entities.urls', namespace='entities')),
     url(r'^books/', include('books.urls', namespace='books')),
+    url(r'^books-ac/', include('books.dal_urls', namespace='books-ac')),
     url(r'^charts/', include('charts.urls', namespace='charts')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]

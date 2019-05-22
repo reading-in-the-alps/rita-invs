@@ -10,85 +10,6 @@ from idprovider.models import IdProvider
 from . utils import lobid_to_data, get_results, query_bsb, sanitize_querystring
 
 
-class Exemplar(IdProvider):
-    title = models.CharField(
-        max_length=250, blank=True,
-        verbose_name="Titel",
-        help_text="(Normalisierter) Titel des Werkes"
-    )
-    normdata_id = models.CharField(
-        max_length=350, blank=True,
-        verbose_name="Normdaten ID",
-        help_text="Link zu Normdateneintrag"
-    )
-    certainty = models.ForeignKey(
-        SkosConcept, blank=True, null=True,
-        verbose_name="Gewissheit",
-        help_text="Wie sicher ist diese Verbindung",
-        on_delete=models.SET_NULL
-    )
-
-    def __str__(self):
-        if self.title:
-            return "{}".format(self.title)
-        elif self.normdata_id:
-            return "{}".format(self.normdata_id)
-        else:
-            return "{}".format(self.id)
-
-    @classmethod
-    def get_listview_url(self):
-        return reverse('books:exemplar_browse')
-
-    @classmethod
-    def get_createview_url(self):
-        return reverse('books:exemplar_create')
-
-    def get_absolute_url(self):
-        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
-
-    def get_absolute_url(self):
-        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
-
-    def get_delete_url(self):
-        return reverse('books:exemplar_delete', kwargs={'pk': self.id})
-
-    def get_edit_url(self):
-        return reverse('books:exemplar_edit', kwargs={'pk': self.id})
-
-    def get_next(self):
-        next = self.__class__.objects.filter(id__gt=self.id).order_by('id')
-        if next:
-            return reverse(
-                'books:exemplar_detail',
-                kwargs={'pk': next.first().id}
-            )
-        return False
-
-    def get_prev(self):
-        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
-        if prev:
-            return reverse(
-                'books:exemplar_detail',
-                kwargs={'pk': prev.first().id}
-            )
-        return False
-
-    def get_bvb_id(self):
-        if self.normdata_id.startswith('http://mdz-nbn-resolving.de'):
-            try:
-                bsb_id = self.normdata_id.split(settings.BSB_PATTERN)[1]
-            except IndexError:
-                bsb_id = None
-            return bsb_id
-
-    def get_rdf(self):
-        if self.get_bvb_id() is not None:
-            query = sanitize_querystring(query_bsb, self.get_bvb_id())
-            results = get_results(query)
-            return results
-
-
 class Creator(IdProvider):
     """Beschreibt einen Akteur der für die Erzeugung eines Werkes verantwortlich war."""
     legacy_id = models.CharField(
@@ -201,12 +122,6 @@ class Work(IdProvider):
         help_text="Person oder Institution die an der Erzeugung des Werkes beteiligt waren.",
         related_name="has_creator"
     )
-    exemplar = models.ManyToManyField(
-        Exemplar, blank=True,
-        verbose_name="Exemplar",
-        help_text="Ein Exemplar dieses Werkes",
-        related_name="has_exemplar"
-    )
     year_of_origin = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True,
         verbose_name="Erscheinungsjahr",
@@ -259,3 +174,82 @@ class Work(IdProvider):
                 kwargs={'pk': prev.first().id}
             )
         return False
+
+
+class Exemplar(IdProvider):
+    normdata_id = models.CharField(
+        max_length=350, blank=True,
+        verbose_name="Normdaten ID",
+        help_text="Link zu Normdateneintrag"
+    )
+    certainty = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Gewissheit",
+        help_text="Wie sicher ist diese Verbindung",
+        on_delete=models.SET_NULL
+    )
+    related_work = models.ForeignKey(
+        Work, blank=True, null=True,
+        verbose_name="Werk",
+        help_text="Werk",
+        related_name="has_exemplar",
+        on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        if self.normdata_id:
+            return "{}".format(self.normdata_id)
+        else:
+            return "{}".format(self.id)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('books:exemplar_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('books:exemplar_create')
+
+    def get_absolute_url(self):
+        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('books:exemplar_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('books:exemplar_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id).order_by('id')
+        if next:
+            return reverse(
+                'books:exemplar_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'books:exemplar_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
+    def get_bvb_id(self):
+        if self.normdata_id.startswith('http://mdz-nbn-resolving.de'):
+            try:
+                bsb_id = self.normdata_id.split(settings.BSB_PATTERN)[1]
+            except IndexError:
+                bsb_id = None
+            return bsb_id
+
+    def get_rdf(self):
+        if self.get_bvb_id() is not None:
+            query = sanitize_querystring(query_bsb, self.get_bvb_id())
+            results = get_results(query)
+            return results

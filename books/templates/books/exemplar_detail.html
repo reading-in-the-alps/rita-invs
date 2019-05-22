@@ -6,10 +6,10 @@
     <table class="table table-bordered table-hover">
         <tr>
             <th>
-                {% get_verbose_name exemplar "title" %}
+                {% get_verbose_name exemplar "related_work" %}
             </th>
             <td>
-                {{ object.title }}
+                <a href="{{ object.related_work.get_absolute_url }}">{{ object.related_work }}</a>
             </td>
         </tr>
         <tr>
@@ -22,14 +22,10 @@
         </tr>
         <tr>
             <th>
-                Werk
+                {% get_verbose_name exemplar "certainty" %}
             </th>
             <td>
-                {% for x in object.has_exemplar.all %}
-                    <li>
-                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                    </li>
-                {% endfor %}
+                <a href="{{ object.certainty.get_absolute_url }}">{{ object.certainty }}</a>
             </td>
         </tr>
     </table>

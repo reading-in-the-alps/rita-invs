@@ -30,10 +30,6 @@ class WorkTable(tables.Table):
         "{% for x in record.creator.all %}<li><a href='{{ x.get_absolute_url }}'>{{ x }}</a></li> {% endfor %}",
         orderable=False, verbose_name="Erzeuger"
     )
-    exemplar = tables.TemplateColumn(
-        "{% for x in record.exemplar.all %}<li><a href='{{ x.normdata_id }}'>{{ x.normdata_id }}</a></li>  {% endfor %}",
-        orderable=False, verbose_name="Exemplare"
-    )
 
     class Meta:
         model = Work
