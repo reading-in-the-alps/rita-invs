@@ -141,10 +141,12 @@
                             <li>
                                 {{ x.vollregest }} <br />
                                 <small><a href="{{ x.get_absolute_url }}">{{ x }}</a></small>
+
                             </li>
                         {% endfor %}
                     {% endif %}
-                    {% if object.is_main_person %}
+
+                    {% if object.is_main_person.all %}
                         <legend>
                             Inventar als Hauptperson
                         </legend>
@@ -153,10 +155,19 @@
                                 <small>
                                     <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                 </small>
+                                <ul>
+                                    {% for y in x.mentioned_books.all %}
+                                        <li>
+                                            <small>
+                                                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                            </small>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </li>
                         {% endfor %}
                     {% endif %}
-                    {% if object.is_related_person %}
+                    {% if object.is_related_person.all %}
                         <legend>
                             Inventar als verwandte Person
                         </legend>

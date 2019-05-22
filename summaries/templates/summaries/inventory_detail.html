@@ -23,6 +23,33 @@
                     {{ object.vollstaendig }}
                 </td>
             </tr>
+            {% if object.buecher_sys == 'Bücher' %}
+                <tr>
+                    <th>
+                        {{ object.mentioned_books_nr }} Bücher erwähnt
+                    </th>
+                    <td>
+                        {{ object.buecher }}
+                        {% if object.mentioned_books.all %}
+                            <br />
+                            {% for x in object.mentioned_books.all %}
+                                <li>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th>
+                        {% get_verbose_name inventoryentry "buecher_sys" %}
+                    </th>
+                    <td>
+                        {{ object.buecher_sys }}
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <th>
                     {% get_verbose_name inventoryentry "is_located_in" %}

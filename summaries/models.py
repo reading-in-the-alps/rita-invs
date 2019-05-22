@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import JSONField
 from idprovider.models import IdProvider
 from entities.models import Institution, Person, Place
 from vocabs.models import SkosConcept
+from books.models import Work
 
 
 class VerfachBuch(IdProvider):
@@ -213,6 +214,17 @@ class InventoryEntry(IdProvider):
         blank=True, null=True, default="keine Bücher",
         choices=BUECHER, max_length=250,
         verbose_name="Bücher erwähnt?"
+    )
+    mentioned_books = models.ManyToManyField(
+        Work, blank=True,
+        verbose_name="Erwähnte Bücher",
+        help_text="Bücher, die in den Inventaren erähnt wurden",
+        related_name="is_related_work"
+    )
+    mentioned_books_nr = models.IntegerField(
+        blank=True, null=True,
+        verbose_name="Anzahl der erwähnten Bücher",
+        help_text="Anzahl der erwähnten Bücher"
     )
     vollstaendig = models.CharField(
         blank=True, null=True, default="unklar",

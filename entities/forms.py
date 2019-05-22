@@ -85,8 +85,11 @@ class PersonFilterFormHelper(FormHelper):
                     css_id="rolle"
                     ),
                 AccordionGroup(
-                    'Inventare',
+                    'Inventare & Bücher',
                     'is_main_person__buecher_sys',
+                    'is_main_person__mentioned_books',
+                    'is_main_person__mentioned_books__title',
+                    'is_main_person__mentioned_books_nr',
                     css_id="inventare"
                     ),
                 )

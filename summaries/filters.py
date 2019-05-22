@@ -42,6 +42,20 @@ class InventoryEntryListFilter(django_filters.FilterSet):
         help_text="Zeichenkette die im Feld 'Bücher' enthalten sein muss.",
         label=InventoryEntry._meta.get_field('buecher').verbose_name
     )
+    mentioned_books_nr = django_filters.RangeFilter(
+        help_text=InventoryEntry._meta.get_field('mentioned_books_nr').help_text,
+        label=InventoryEntry._meta.get_field('mentioned_books_nr').verbose_name,
+    )
+    mentioned_books = django_filters.ModelMultipleChoiceFilter(
+        queryset=Work.objects.all(),
+        help_text=InventoryEntry._meta.get_field('mentioned_books').help_text,
+        label=InventoryEntry._meta.get_field('mentioned_books').verbose_name,
+        )
+    mentioned_books__title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text='Zeichenkette die im Buchtitel vorkommen muss.',
+        label="Name des Buchtitel"
+        )
 
     class Meta:
         model = InventoryEntry

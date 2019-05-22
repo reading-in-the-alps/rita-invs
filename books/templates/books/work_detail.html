@@ -36,6 +36,18 @@
                 {% endfor %}
             </td>
         </tr>
+        <tr>
+            <th>
+                Erwähnt in
+            </th>
+            <td>
+                {% for x in object.is_related_work.all %}
+                    <li>
+                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                    </li>
+                {% endfor %}
+            </td>
+        </tr>
     </table>
 
 {% endblock custom %}

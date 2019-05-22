@@ -4,7 +4,8 @@ from dal import autocomplete
 from vocabs.models import SkosConcept
 from vocabs.filters import generous_concept_filter
 from entities.models import *
-from summaries.models import BUECHER
+from summaries.models import BUECHER, InventoryEntry
+from books.models import Work
 
 
 class PersonPersonListFilter(django_filters.FilterSet):
@@ -73,8 +74,24 @@ class PersonListFilter(django_filters.FilterSet):
         label="Name des Wohnorts"
         )
     is_main_person__buecher_sys = django_filters.ChoiceFilter(
-        choices=BUECHER
+        choices=BUECHER,
+        help_text=InventoryEntry._meta.get_field('buecher_sys').help_text,
+        label=InventoryEntry._meta.get_field('buecher_sys').verbose_name,
     )
+    is_main_person__mentioned_books_nr = django_filters.RangeFilter(
+        help_text=InventoryEntry._meta.get_field('mentioned_books_nr').help_text,
+        label=InventoryEntry._meta.get_field('mentioned_books_nr').verbose_name,
+    )
+    is_main_person__mentioned_books = django_filters.ModelMultipleChoiceFilter(
+        queryset=Work.objects.all(),
+        help_text=InventoryEntry._meta.get_field('mentioned_books').help_text,
+        label=InventoryEntry._meta.get_field('mentioned_books').verbose_name,
+        )
+    is_main_person__mentioned_books__title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text='Zeichenkette die im Buchtitel vorkommen muss.',
+        label="Name des Buchtitel"
+        )
 
     class Meta:
         model = Person
