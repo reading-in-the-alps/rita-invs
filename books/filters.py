@@ -7,6 +7,18 @@ from entities.models import Place
 from . models import *
 
 
+class ExemplarListFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Exemplar._meta.get_field('title').help_text,
+        label=Exemplar._meta.get_field('title').verbose_name
+        )
+
+    class Meta:
+        model = Exemplar
+        fields = "__all__"
+
+
 class WorkListFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(
         lookup_expr='icontains',

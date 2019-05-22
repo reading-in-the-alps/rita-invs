@@ -29,6 +29,30 @@ urlpatterns = [
         views.WorkDelete.as_view(),
         name='work_delete'),
     url(
+        r'^exemplar/$',
+        views.ExemplarListView.as_view(),
+        name='exemplar_browse'
+    ),
+    url(
+        r'^exemplar/detail/(?P<pk>[0-9]+)$',
+        views.ExemplarDetailView.as_view(),
+        name='exemplar_detail'
+    ),
+    url(
+        r'^exemplar/create/$',
+        views.ExemplarCreate.as_view(),
+        name='exemplar_create'
+    ),
+    url(
+        r'^exemplar/edit/(?P<pk>[0-9]+)$',
+        views.ExemplarUpdate.as_view(),
+        name='exemplar_edit'
+    ),
+    url(
+        r'^exemplar/delete/(?P<pk>[0-9]+)$',
+        views.ExemplarDelete.as_view(),
+        name='exemplar_delete'),
+    url(
         r'^creator/$',
         views.CreatorListView.as_view(),
         name='creator_browse'

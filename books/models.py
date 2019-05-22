@@ -36,6 +36,44 @@ class Exemplar(IdProvider):
         else:
             return "{}".format(self.id)
 
+    @classmethod
+    def get_listview_url(self):
+        return reverse('books:exemplar_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('books:exemplar_create')
+
+    def get_absolute_url(self):
+        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('books:exemplar_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('books:exemplar_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('books:exemplar_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id).order_by('id')
+        if next:
+            return reverse(
+                'books:exemplar_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'books:exemplar_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
     def get_bvb_id(self):
         if self.normdata_id.startswith('http://mdz-nbn-resolving.de'):
             try:

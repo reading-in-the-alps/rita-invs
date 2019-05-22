@@ -12,6 +12,53 @@ from . tables import *
 from . models import *
 
 
+class ExemplarListView(GenericListView):
+    model = Exemplar
+    filter_class = ExemplarListFilter
+    formhelper_class = ExemplarFilterFormHelper
+    table_class = ExemplarTable
+    init_columns = [
+        'id',
+        'title',
+    ]
+    enable_merge = True
+
+
+class ExemplarDetailView(DetailView):
+    model = Exemplar
+    template_name = 'books/exemplar_detail.html'
+
+
+class ExemplarCreate(BaseCreateView):
+
+    model = Exemplar
+    form_class = ExemplarForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ExemplarCreate, self).dispatch(*args, **kwargs)
+
+
+class ExemplarUpdate(BaseUpdateView):
+
+    model = Exemplar
+    form_class = ExemplarForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ExemplarUpdate, self).dispatch(*args, **kwargs)
+
+
+class ExemplarDelete(DeleteView):
+    model = Exemplar
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('books:exemplar_browse')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ExemplarDelete, self).dispatch(*args, **kwargs)
+
+
 class WorkListView(GenericListView):
     model = Work
     filter_class = WorkListFilter
