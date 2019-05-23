@@ -59,6 +59,19 @@ class InventoryEntryListFilter(django_filters.FilterSet):
         help_text='Zeichenkette die im Buchtitel vorkommen muss.',
         label="Name des Buchtitel"
         )
+    main_person = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=InventoryEntry._meta.get_field('main_person').help_text,
+        label=InventoryEntry._meta.get_field('main_person').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url="/entities-ac/main-person-autocomplete/",
+            )
+        )
+    main_person__written_name = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text='Zeichenkette die im Namen der Person vorkommen muss.',
+        label="Name der Person"
+        )
 
     class Meta:
         model = InventoryEntry

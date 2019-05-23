@@ -64,6 +64,12 @@ class InventoryEntryFilterFormHelper(FormHelper):
                     css_id="inhalt_search_fields"
                     ),
                 AccordionGroup(
+                    'Personen',
+                    'main_person',
+                    'main_person__written_name',
+                    css_id="person_search_fields"
+                    ),
+                AccordionGroup(
                     'Vermögen',
                     'invenatar_summe_norm_fl',
                     'vor_passiva_fl',

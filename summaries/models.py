@@ -218,7 +218,7 @@ class InventoryEntry(IdProvider):
     mentioned_books = models.ManyToManyField(
         Work, blank=True,
         verbose_name="Erwähnte Bücher",
-        help_text="Bücher, die in den Inventaren erähnt wurden",
+        help_text="Bücher, die in den Inventaren erwähnt wurden",
         related_name="is_related_work"
     )
     mentioned_books_nr = models.IntegerField(

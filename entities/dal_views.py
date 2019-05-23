@@ -23,6 +23,16 @@ class PlaceAC(autocomplete.Select2QuerySetView):
         return qs
 
 
+class MainPersonAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Person.objects.filter(is_main_person__isnull=False)
+
+        if self.q:
+            qs = qs.filter(written_name__icontains=self.q)
+
+        return qs
+
+
 class PersonAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Person.objects.all()
