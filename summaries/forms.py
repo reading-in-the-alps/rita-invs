@@ -69,6 +69,7 @@ class InventoryEntryFilterFormHelper(FormHelper):
                     'Lesen & Schreiben',
                     'buecher',
                     'buecher_sys',
+                    'mentioned_books_nr',
                     'mentioned_books',
                     'mentioned_books__title',
                     'vollstaendig',

@@ -86,6 +86,9 @@ class PersonListFilter(django_filters.FilterSet):
         queryset=Work.objects.all(),
         help_text=InventoryEntry._meta.get_field('mentioned_books').help_text,
         label=InventoryEntry._meta.get_field('mentioned_books').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url="/books-ac/work-autocomplete/",
+            )
         )
     is_main_person__mentioned_books__title = django_filters.CharFilter(
         lookup_expr='icontains',
