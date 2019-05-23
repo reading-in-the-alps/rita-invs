@@ -89,7 +89,12 @@ class InventoryEntryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(InventoryEntryDetailView, self).get_context_data()
-        context['orig_data'] = json.loads(self.object.excel_row)
+        try:
+            context['orig_data'] = json.loads(self.object.excel_row)
+        except TypeError:
+            context['orig_data'] = {}
+        except ValueError:
+            context['orig_data'] = {}
         return context
 
     @method_decorator(login_required)

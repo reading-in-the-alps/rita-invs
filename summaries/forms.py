@@ -12,6 +12,8 @@ class InventoryEntryForm(forms.ModelForm):
         model = InventoryEntry
         fields = "__all__"
         widgets = {
+            'inv_type': autocomplete.ModelSelect2(
+                url='/vocabs-ac/concept-by-colleciton-ac/adm-action-type'),
             'main_person': autocomplete.ModelSelect2Multiple(
                 url='entities-ac:person-autocomplete'
             ),
@@ -23,6 +25,9 @@ class InventoryEntryForm(forms.ModelForm):
             ),
             'other_person': autocomplete.ModelSelect2Multiple(
                 url='entities-ac:person-autocomplete'
+            ),
+            'mentioned_books': autocomplete.ModelSelect2Multiple(
+                url='books-ac:work-autocomplete'
             ),
         }
 

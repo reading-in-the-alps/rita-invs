@@ -39,6 +39,8 @@ class PersonPersonForm(forms.ModelForm):
             'source': autocomplete.ModelSelect2(
                 url='entities-ac:person-autocomplete'),
             'target': autocomplete.ModelSelect2(url='entities-ac:person-autocomplete'),
+            'rel_type': autocomplete.ModelSelect2(
+                url='/vocabs-ac/concept-by-colleciton-ac/fam-rel'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -104,6 +106,10 @@ class PersonForm(forms.ModelForm):
             'belongs_to_institution': autocomplete.ModelSelect2(
                 url='entities-ac:institution-autocomplete'),
             'place_of_birth': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+            'place_of_death': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+            'belongs_to_place': autocomplete.ModelSelect2Multiple(url='entities-ac:place-autocomplete'),
+            'profession': autocomplete.ModelSelect2Multiple(
+                url='/vocabs-ac/concept-by-colleciton-ac/Berufe'),
             'alt_names': autocomplete.ModelSelect2Multiple(
                 url='entities-ac:altname-autocomplete'),
         }
