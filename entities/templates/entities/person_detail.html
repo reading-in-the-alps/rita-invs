@@ -210,6 +210,11 @@
         </div>
     </div>
         {% if user.is_authenticated %}
+            <h3>Zeige potentielle Duplikate</h3>
+            <form action="./{{ object.id }}" method="GET">
+                Levenshtein Distanz: <input type="leven" name="leven" min="1" max="100">
+              <input type="submit">
+            </form>
             <div>
                 <legend>
                     Potentielle Dublikate von: {{ object.written_name_leven }}
